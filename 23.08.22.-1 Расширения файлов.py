@@ -1,22 +1,14 @@
 class FileAcceptor:
-    def __init__(self, *args):
-        self.arr = list(args)
 
+    def __init__(self, *args):
+            self.arr = args
     def __add__(self, other):
-        for x in other.arr:
-            if x not in self.arr:
-                self.arr.append(x)
-        a = self.arr
-        return FileAcceptor(*a)
+        return FileAcceptor(self.arr+other.arr)
 
     def __call__(self, *args, **kwargs):
-        # print("__call__")
-        # for arg in args:
-        #     if arg.split(".")[-1] not in self.arr:
-        #         return False
-        #     else:
-        #         return True
-        return all(arg.split(".")[-1] in self.arr for arg in args)
+        return all(arg.endswith(*self.arr) for arg in args)
+
+
 
 
 
